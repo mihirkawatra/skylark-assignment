@@ -1,14 +1,33 @@
 import os
 files = os.listdir('./images')
 
-from PIL import Image,ExifTags
+# from PIL import Image,ExifTags
+# count=0
+# fail=[]
+# for path in files:
+#     try:
+#         image = Image.open('./images/'+path)
+#         exif = { ExifTags.TAGS[k]: v for k, v in image._getexif().items() if k in ExifTags.TAGS }
+#         print(exif)
+#         print("-----------------------------------------------------------")
+#         count+=1
+#     except:
+#         fail.append(path)
+#         continue
+# print(count)
+# print(len(files))
+# print(fail)
+
+import exifread
+# Open image file for reading (binary mode)
 count=0
 fail=[]
 for path in files:
     try:
-        image = Image.open('./images/'+path)
-        exif = { ExifTags.TAGS[k]: v for k, v in image._getexif().items() if k in ExifTags.TAGS }
-        print(exif)
+        f = open('./images/'+path, 'rb')
+        # Return Exif tags
+        tags = exifread.process_file(f)
+        print(tags)
         print("-----------------------------------------------------------")
         count+=1
     except:
@@ -17,6 +36,7 @@ for path in files:
 print(count)
 print(len(files))
 print(fail)
+
 # import exiftool
 # print(files)
 # with exiftool.ExifTool() as et:
