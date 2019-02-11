@@ -1,7 +1,6 @@
 import piexif
 import os
 import csv
-import re
 
 def decimal_degrees(d):
     lat = d[2]
